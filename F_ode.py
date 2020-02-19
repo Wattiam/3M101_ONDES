@@ -38,6 +38,12 @@ def test33(phi,psi,vphi,vpsi,M):
     return -(((phi*vpsi)-(vphi*psi))**2)/(2*(M-1)) + (vpsi**2) + M * psi**2 + (1/2)*(psi**2)*((phi**2) + (psi**2))
 
 
+#Calcul de l'énergie (Hamiltonien)
 def E33(phi,psi,vphi,vpsi,M):
     
     return (1/2)*((vphi**2)+(vpsi**2)) + (1/2)*((phi**2) + M*(psi**2)) + (1/4) * ((phi**2) +(psi**2))**2
+
+
+def E30(phi,psi,vphi,vpsi,M):
+    
+    return (1/2)*((vphi**2)+(vpsi**2)) + (1/2)*((phi**2) + M*(psi**2)) + (1/4) * ((phi**2) + M*(psi**2))**2
