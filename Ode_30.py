@@ -9,7 +9,7 @@ Created on Wed Feb 19 17:06:49 2020
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
-from F_ode import F_30
+from F_ode import F_30, E30
 
 #Paramètres:
 M1 = 10
@@ -52,5 +52,5 @@ plt.title("Solution de l'équation (30) dans le plan ($\phi$,$\psi$) \n Paramèt
 
 plt.show()
 
-
+Energie = E30(C0[0],C0[1],C0[2],C0[3],M1)
 
