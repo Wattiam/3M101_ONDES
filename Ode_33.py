@@ -9,7 +9,7 @@ Created on Wed Feb 19 14:49:50 2020
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
-from F_ode import F_33
+from F_ode import F_33, test33, E33
 
 #Paramètres:
 
@@ -60,6 +60,8 @@ plt.show()
 
 #1.1563
 
+test = test33(C0[0],C0[1],C0[2],C0[3],M1)
+Energie = E33(C0[0],C0[1],C0[2],C0[3],M1)
 
 
 
