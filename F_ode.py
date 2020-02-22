@@ -32,6 +32,12 @@ def F_inédit(tab,t,M):
     return du
 
 
+def F_34(tab,t,M):
+    phi,psi,vphi,vpsi = tab
+    du = np.array([vphi, vpsi, - phi , - M*psi])
+    return du
+
+
 #Test pour les solutions exceptionelles de l'équation 33
 def test33(phi,psi,vphi,vpsi,M):
     
