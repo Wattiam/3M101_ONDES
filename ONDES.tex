@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
@@ -11,38 +11,112 @@
 %\usepackage{fourier}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{titlepic}
-\usepackage{pythontex}
-\usepackage{lipsum}
-\usepackage{fancyhdr}
-\author{BELHADJI, Yanis ; CAZALS, Laure ; GUNNY Masoodah ; RODRÍGUEZ CORTÉZ, Carlos Alfonso}
-\title{}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{listings}
+ 
+\definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
+\definecolor{gris}{rgb}{0.71,0.71,0.71}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+  aboveskip=3mm,
+  belowskip=-2mm,
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{gris},
+  deletekeywords={...},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  framexleftmargin=16pt,
+  framextopmargin=3pt,
+  framexbottommargin=6pt,
+  frame=tb,
+  keepspaces=true,
+  keywordstyle=\color{blue},
+  language=python,
+  literate=
+  {²}{{\textsuperscript{2}}}1
+  {⁴}{{\textsuperscript{4}}}1
+  {⁶}{{\textsuperscript{6}}}1
+  {⁸}{{\textsuperscript{8}}}1
+  {€}{{\euro{}}}1
+  {é}{{\'e}}1
+  {è}{{\`{e}}}1
+  {ê}{{\^{e}}}1
+  {ë}{{\¨{e}}}1
+  {É}{{\'{E}}}1
+  {Ê}{{\^{E}}}1
+  {û}{{\^{u}}}1
+  {ù}{{\`{u}}}1
+  {â}{{\^{a}}}1
+  {à}{{\`{a}}}1
+  {á}{{\'{a}}}1
+  {ã}{{\~{a}}}1
+  {Á}{{\'{A}}}1
+  {Â}{{\^{A}}}1
+  {Ã}{{\~{A}}}1
+  {ç}{{\c{c}}}1
+  {Ç}{{\c{C}}}1
+  {õ}{{\~{o}}}1
+  {ó}{{\'{o}}}1
+  {ô}{{\^{o}}}1
+  {Õ}{{\~{O}}}1
+  {Ó}{{\'{O}}}1
+  {Ô}{{\^{O}}}1
+  {î}{{\^{i}}}1
+  {Î}{{\^{I}}}1
+  {í}{{\'{i}}}1
+  {Í}{{\~{Í}}}1,
+  morekeywords={*,...},
+  numbers=left,
+  numbersep=10pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  emph={F_30,np.array,as}, 
+  emphstyle=\color{blue},
+  stepnumber=1,
+  stringstyle=\color{gray},
+  tabsize=4,
+  stringstyle=\color{mymauve},
+  title=\lstname,
+}
 
 
 
+
+%\usepackage{lipsum}
+%\usepackage{fancyhdr}
+\author{BELHADJI, Yanis ; CAZALS, Laure ; GUNNY, Masoodah ; RODRÍGUEZ CORTÉZ, Carlos Alfonso}
+%\title{}
 
 
 
 \begin{document}
- %\thispagestyle{empty}
+
 \begin{titlepage}
-\includegraphics[scale=0.4]{logo.png}
-\begin{center}
-\vspace*{7cm}
-{\Huge  \textbf{UE 3M101 - }}{\huge \textbf{PROJET}}
-\\
+    \includegraphics[scale=0.4]{logo.png}
+    \begin{center}
+    \vspace*{7cm}
+    {\Huge  \textbf{UE 3M101 - }}{\huge \textbf{PROJET}}
+    \\
+    \vspace{1.5cm}
+    \huge \textbf{ONDES}
+    \vfill
 
- \vspace{1.5cm}
- \huge \textbf{ONDES}
- \vfill
-
-{\large  Encadrant : CAZENAVE, Thierry}
-\\~\\
-{\normalsize BELHADJI, Yanis ; CAZALS, Laure ; GUNNY Masoodah ; RODRÍGUEZ CORTÉZ, Carlos Alfonso}
-\\
-\vspace{1cm}
-{\normalsize Année 2019-2020}
- \end{center}
-
+    {\large  Encadrant : CAZENAVE, Thierry}
+    \\~\\
+    {\normalsize BELHADJI, Yanis ; CAZALS, Laure ; GUNNY, Masoodah ; RODRÍGUEZ CORTÉZ, Carlos Alfonso}
+    \\
+    \vspace{1cm}
+    {\normalsize Année 2019-2020}
+    \end{center}
 \end{titlepage}
  
  
@@ -57,39 +131,144 @@
 \setcounter{page}{1}
 
 \section{Introduction}
-La première équation aux dérivées partielles est apparut pour expliquer le phénomène de vibration d'une corde fixée à ses extremités, et fut présentée sous la forme suivante par Jean le Rond d'Alembert :
-\begin{equation} \label{Ondes} 
+La première équation aux dérivées partielles est apparue pour expliquer le phénomène de vibration d'une corde fixée à ses extrémités, et fut présentée sous la forme suivante par Jean le Rond d'Alembert (1746) :
+    \begin{equation} \label{Ondes} 
+    \begin{cases} 
+    \displaystyle \frac {\partial ^2 u } {\partial t ^2} = \frac {\partial ^2 u } {\partial x ^2}  \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+    \end{cases} 
+    \end{equation} \\
+où la fonction $u(t, x)$ représente le déplacement transversal du point $x$ de la corde (considérée tendue) à l'instant $t$ par rapport à sa position d'équilibre. Cette équation correspond au cas où les oscillations sont petites.\\
+
+D'autres équations et systèmes d'équations différentielles ont été proposés pour mieux décrire les phénomènes vibratoires en physique. Ces objets sont d'une grande importance dans certains domaines  comme la mécanique des fluides, l'optique, et même la mécanique quantique.\\
+
+L'objectif de ce projet est de présenter quelques cas d'équations différentielles décrivant des ondes, d'en trouver les solutions au moyen d'un calcul numérique et d'en discuter les particularités, notamment les différents régimes d'oscillation auxquels donnent naissance ces différents systèmes.\\
+Nous allons étudier les deux équations ci-dessous :
+    \begin{equation} \label{KC} \tag{KC}
+    \begin{cases} 
+    \displaystyle \frac {\partial ^2 u } {\partial t ^2} =  \Bigl( 1+ \int _0^\pi  \Bigl( \frac {\partial u} {\partial x} \Bigr)^2 \Bigr) \frac {\partial ^2 u } {\partial x ^2} \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+    \end{cases} 
+    \end{equation} 
+
+
+
+    \begin{equation} \label{CHW} \tag{S}
+    \begin{cases} 
+    \displaystyle \frac {\partial ^2 u } {\partial t ^2} = \frac {\partial ^2 u } {\partial x ^2} -  \Bigl( \int _0^\pi u(t,s)^2 ds \Bigr) u \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+    \end{cases} 
+    \end{equation} 
+    \\
+Le système \eqref{KC} est l'équation de Kirchhoff (ou Kirchhoff-Carrier), et le système \eqref{CHW} est un modèle plus simple qui partage certaines propriétés fondamentales avec \eqref{KC}.\\
+
+\section{Contexte théorique}
+
+Nous cherchons dans un premier temps des solutions dites «modes simples», qui sont de la forme:
+\begin{equation} \label{UC2} 
+u(t, x) = f(t) \sin ( n x )
+\end{equation}  
+Cette restriction simplifie notre étude ; on obtient les deux équations équivalentes à \eqref{KC} et \eqref{CHW} respectivement : 
+\begin{equation} \label{UC1} 
+f '' + n^2  \Bigl( 1+  \frac {\pi } {2} n^2  f^2 \Bigr) f=0
+\end{equation} 
+ et
+\begin{equation} \label{UC3} 
+f '' + n^2  f +   \frac {\pi } {2}   f^3 =0
+\end{equation} \\
+
+Ces équations possèdent la particularité de pouvoir être mises sous la forme : 
+\begin{equation} \label{fSO1} 
+U'' + g (U) =0
+\end{equation} 
+
+Dans les deux cas, il existe une fonction $G\in C^\infty ( \mathbb{R}^{\ell}, \mathbb{R} )$ telle que
+\begin{equation} \label{fSO2} 
+g(U) = \nabla G (U), \quad \forall U\in \mathbb{R}^{\ell} .
+\end{equation} 
+Plus précisément, pour \eqref{UC1} $G (U)=   \frac {n^2} {2} U^2+  \frac {\pi n^4} {8}   U^4 $, et pour \eqref{UC3}   $G(U)=  \frac {n^2} {2} U^2 +   \frac {\pi } {8}   U^4$. 
+
+A son tour, l'équation \eqref{fSO1} peut se mettre sous la forme plus générale
+\begin{equation} \label{fCL1} 
+V' = \Phi (V) 
+\end{equation} 
+où $V=V(t) \in \mathbb{R}^N $ et $\Phi : \mathbb{R}^N \to \mathbb{R}^N$ est de classe $C^\infty $. 
+Il suffit pour cela de remarquer que \eqref{fSO1} peut s'écrire comme un système
+\begin{equation} \label{fSO5} 
 \begin{cases} 
-\displaystyle \frac {\partial ^2 u } {\partial t ^2} = \frac {\partial ^2 u } {\partial x ^2}  \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+U'= W \\ W' = - g( U). 
 \end{cases} 
 \end{equation} 
-où la fonction $u(t, x)$ représente le déplacement transversal du point $x$ de la corde à l'instant $t$ par rapport à sa position d'équilibre (qui est $u_{eq} = 0$ lorsqu'on considère que la corde est tendue). Cette équation correspond au cas où les oscillations $\mid u\mid$ sont suffisament petites.
-D'autres équations et systèmes d'équations différentielles ont été proposés pour mieux décrire les phénomènes vibratoires en physique. Ces objets sont d'une grande importance par exemple en mécanique des fluides, en optique, voire en mécanique quantique.\\
-L'objectif de ce projet est de présenter quelques cas d'équations différentielles décrivant des ondes, d'en dériver les solutions au moyen d'un calcul numérique et d'en discuter les particularités, notamment les différents régimes d'oscillation auxquels donnent naissance ces différents systèmes.
-On étudiera les systèmes :
-\begin{equation} \label{KC} 
+Nous posons alors $N= 2 \ell $ et on définit $\Phi : \mathbb{R}^N \to \mathbb{R}^N $ par
+\begin{equation} \label{fSO6} 
+\Phi \begin{pmatrix} U \\W \end{pmatrix} = \begin{pmatrix} W \\ - g(U) \end{pmatrix} 
+\end{equation} 
+pour $U, W\in \mathbb{R}^\ell$. 
+\\
+
+Nous étendons notre étude en supposant les solutions des superpositions de modes simples : 
+ \begin{equation} 
+ u(t,x)= f(t) \sin ( j x) + g (t) \sin ( k x )
+ \end{equation} \\
+ Pour le système~\eqref{KC}, il est commode de poser
+\begin{equation} \label{KC2} 
+f (t)= \frac {1} {j}  \phi   ( j t )  \sqrt{\frac {2} {\pi }} , \quad g (t) = \frac {1} {j}  \psi   ( j t )  \sqrt{\frac {2} {\pi }} , \quad \mu =  \Bigl( \frac {k} {j} \Bigr)^2
+\end{equation} 
+de façon que le système~\eqref{KC} devienne
+ \begin{equation} \label{KC3} 
 \begin{cases} 
-\displaystyle \frac {\partial ^2 u } {\partial t ^2} =  \Bigl( 1+ \int _0^\pi  \Bigl( \frac {\partial u} {\partial x} \Bigr)^2 \Bigr) \frac {\partial ^2 u } {\partial x ^2} \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+\phi  '' + \phi  +    ( \phi ^2 + \mu  \psi ^2 ) \phi  =0 \\
+\psi  '' + \mu \psi  +  \mu ( \phi ^2 + \mu  \psi ^2 ) \psi  =0 
 \end{cases} 
 \end{equation} 
-
-
-
-\begin{equation} \label{CHW} 
+Notons qu'en posant $ \varphi  = \mu ^{\frac {1} {2}} \psi $, le système~\eqref{KC3} s'écrit
+ \begin{equation} \label{KC4} 
 \begin{cases} 
-\displaystyle \frac {\partial ^2 u } {\partial t ^2} = \frac {\partial ^2 u } {\partial x ^2} -  \Bigl( \int _0^\pi u(t,s)^2 ds \Bigr) u \quad  \text{pour}\quad t\ge 0, x\in (0,\pi ) \\ u(t, 0)= u (t, \pi )= 0\quad  \text{pour} \quad t\ge 0
+\phi  '' + \phi  +    ( \phi ^2 +   \varphi ^2 ) \phi  =0 \\
+\varphi  '' + \mu  \varphi +  \mu ( \phi ^2 +   \varphi ^2 )  \varphi =0 
 \end{cases} 
 \end{equation} 
-
-Le système \eqref{KC} est l'équation de Kirchhoff (ou Kirchhoff-Carrier), et le système \eqref{CHW} est un modèle plus simple qui partage certaines propriétés fondamentales avec \eqref{KC}.
-
-
-\section{Cordes vibrantes et intéractions en modes simples}
+Pour le système~\eqref{CHW}, nous posons
+\begin{equation} \label{CHW2} 
+f (t)= j \phi   ( j t ) \sqrt{\frac {2} {\pi }} , \quad g (t) = j \psi   ( j t ) \sqrt{\frac {2} {\pi }} , \quad \mu =  \Bigl( \frac {k} {j} \Bigr)^2
+\end{equation} 
+de façon que le système~\eqref{CHW2} devienne
+ \begin{equation} \label{CHW3} 
+\begin{cases} 
+\phi  '' + \phi  +    ( \phi ^2 + \psi ^2 ) \phi  =0 \\
+\psi  '' + \mu \psi  +  ( \phi ^2 + \psi ^2 ) \psi  =0 
+\end{cases} 
+\end{equation} 
+En posant $\phi = U_{1}, \psi = U_{2}, \phi ' = W_{1}, \psi ' = W_{2}$, nous réécrivons les deux systèmes \eqref{KC4} et \eqref{CHW3} sous la forme \eqref{fSO6} . Nous avons alors le système suivant :
+\begin{equation} \label{fSO6} 
+\Phi \begin{pmatrix} U_{1}\\ U_{2} \\W_{1} \\ W_{2}  \end{pmatrix} = \begin{pmatrix} W_{1}\\ W_{2} \\ - g(U_{1})\\ -g(U_{2}) \end{pmatrix} 
+\end{equation} 
 
 \section{Étude du système \eqref{CHW}}
 
-    \subsection{Simplification de l'équation}
+En utilisant Python, nous allons étudier le système \eqref{CHW3} dont les solutions sont les modes simples du système \eqref{CHW}.
+En particulier nous allons coder la fonction \eqref{fSO6} correspondante.
+
+
+\begin{lstlisting}
+
+import numpy as np
+
+"""
+Définition de la fonction qui renvoie la derivée de phi,psi,phi' et psi' 
+pour l'équation 30 avec la syntaxe correspondant à odeint.
+"""
+
+def F_30(tab,t,M):
+    phi,psi,vphi,vpsi = tab
+    du = np.array([vphi, vpsi, - phi - (phi**2 + M*(psi**2))*phi , -M*psi -M*(phi**2 + M*psi**2)*psi])
+    return du
+
+\end{lstlisting}
+
+
+
+
+
     \subsection{Résolution numérique}
+    
     \subsection{Phénomène de transfert d'énergie (solutions exceptionnelles)}
 \section{Résolution de l'équation de Kirchhoff (système \eqref{KC})}
     \subsection{Simplification de l'équation}
@@ -97,6 +276,7 @@ Le système \eqref{KC} est l'équation de Kirchhoff (ou Kirchhoff-Carrier), et l
     \subsection{Phénomène de transfert d'énergie (solutions exceptionnelles) (peut-être??)}
 
 \section{Solution à un système inédit}
+
 
 \end{document}
 
