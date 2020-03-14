@@ -13,86 +13,17 @@
 \usepackage{titlepic}
 \usepackage{color}
 \usepackage[table]{xcolor}
-\usepackage{listings}
- 
+%\usepackage{listings}
+\usepackage{minted}
 \definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
-\definecolor{gris}{rgb}{0.71,0.71,0.71}
-\definecolor{mymauve}{rgb}{0.58,0,0.82}
-
-\lstset{
-  aboveskip=3mm,
-  belowskip=-2mm,
-  backgroundcolor=\color{white},
-  basicstyle=\footnotesize,
-  breakatwhitespace=false,
-  breaklines=true,
-  captionpos=b,
-  commentstyle=\color{gris},
-  deletekeywords={...},
-  escapeinside={\%*}{*)},
-  extendedchars=true,
-  framexleftmargin=16pt,
-  framextopmargin=3pt,
-  framexbottommargin=6pt,
-  frame=tb,
-  keepspaces=true,
-  keywordstyle=\color{blue},
-  language=python,
-  literate=
-  {²}{{\textsuperscript{2}}}1
-  {⁴}{{\textsuperscript{4}}}1
-  {⁶}{{\textsuperscript{6}}}1
-  {⁸}{{\textsuperscript{8}}}1
-  {€}{{\euro{}}}1
-  {é}{{\'e}}1
-  {è}{{\`{e}}}1
-  {ê}{{\^{e}}}1
-  {ë}{{\¨{e}}}1
-  {É}{{\'{E}}}1
-  {Ê}{{\^{E}}}1
-  {û}{{\^{u}}}1
-  {ù}{{\`{u}}}1
-  {â}{{\^{a}}}1
-  {à}{{\`{a}}}1
-  {á}{{\'{a}}}1
-  {ã}{{\~{a}}}1
-  {Á}{{\'{A}}}1
-  {Â}{{\^{A}}}1
-  {Ã}{{\~{A}}}1
-  {ç}{{\c{c}}}1
-  {Ç}{{\c{C}}}1
-  {õ}{{\~{o}}}1
-  {ó}{{\'{o}}}1
-  {ô}{{\^{o}}}1
-  {Õ}{{\~{O}}}1
-  {Ó}{{\'{O}}}1
-  {Ô}{{\^{O}}}1
-  {î}{{\^{i}}}1
-  {Î}{{\^{I}}}1
-  {í}{{\'{i}}}1
-  {Í}{{\~{Í}}}1,
-  morekeywords={*,...},
-  numbers=left,
-  numbersep=10pt,
-  numberstyle=\tiny\color{black},
-  rulecolor=\color{black},
-  showspaces=false,
-  showstringspaces=false,
-  showtabs=false,
-  emph={F_30,np.array,as}, 
-  emphstyle=\color{blue},
-  stepnumber=1,
-  stringstyle=\color{gray},
-  tabsize=4,
-  stringstyle=\color{mymauve},
-  title=\lstname,
-}
-
+\usepackage[backgroundcolor= darkWhite,frametitle={Code Python}]{mdframed}
+\surroundwithmdframed{minted}
 
 
 
 %\usepackage{lipsum}
 %\usepackage{fancyhdr}
+
 \author{BELHADJI, Yanis ; CAZALS, Laure ; GUNNY, Masoodah ; RODRÍGUEZ CORTÉZ, Carlos Alfonso}
 %\title{}
 
@@ -165,7 +96,7 @@ Nous cherchons dans un premier temps des solutions dites «modes simples», qui 
 \begin{equation} \label{UC2} 
 u(t, x) = f(t) \sin ( n x )
 \end{equation}  
-Cette restriction simplifie notre étude ; on obtient les deux équations équivalentes à \eqref{KC} et \eqref{CHW} respectivement : 
+Cette restriction simplifie notre étude ; Nous obtenons les deux équations équivalentes à \eqref{KC} et \eqref{CHW} respectivement : 
 \begin{equation} \label{UC1} 
 f '' + n^2  \Bigl( 1+  \frac {\pi } {2} n^2  f^2 \Bigr) f=0
 \end{equation} 
@@ -203,7 +134,7 @@ Nous posons alors $N= 2 \ell $ et on définit $\Phi : \mathbb{R}^N \to \mathbb{R
 pour $U, W\in \mathbb{R}^\ell$. 
 \\
 
-Nous étendons notre étude en supposant les solutions des superpositions de modes simples : 
+Nous étendons notre étude aux solutions qui sont des superpositions de modes simples : 
  \begin{equation} 
  u(t,x)= f(t) \sin ( j x) + g (t) \sin ( k x )
  \end{equation} \\
@@ -241,39 +172,140 @@ En posant $\phi = U_{1}, \psi = U_{2}, \phi ' = W_{1}, \psi ' = W_{2}$, nous ré
 \Phi \begin{pmatrix} U_{1}\\ U_{2} \\W_{1} \\ W_{2}  \end{pmatrix} = \begin{pmatrix} W_{1}\\ W_{2} \\ - g(U_{1})\\ -g(U_{2}) \end{pmatrix} 
 \end{equation} 
 
+\pagebreak
 \section{Étude du système \eqref{CHW}}
 
-En utilisant Python, nous allons étudier le système \eqref{CHW3} dont les solutions sont les modes simples du système \eqref{CHW}.
-En particulier nous allons coder la fonction \eqref{fSO6} correspondante.
-
-
-\begin{lstlisting}
-
-import numpy as np
-
-"""
-Définition de la fonction qui renvoie la derivée de phi,psi,phi' et psi' 
-pour l'équation 30 avec la syntaxe correspondant à odeint.
-"""
-
-def F_30(tab,t,M):
-    phi,psi,vphi,vpsi = tab
-    du = np.array([vphi, vpsi, - phi - (phi**2 + M*(psi**2))*phi , -M*psi -M*(phi**2 + M*psi**2)*psi])
-    return du
-
-\end{lstlisting}
-
-
-
-
+En utilisant le langage Python, nous allons étudier le système \eqref{CHW3} dont les solutions sont les modes simples du système \eqref{CHW}.
+En particulier nous allons coder la fonction \eqref{fSO6} correspondante pour résoudre numériquement ce système.
 
     \subsection{Résolution numérique}
     
+Nous commençons par définir notre fonction \textbf{F\_15} dans un fichier dédié que nous appelons \textbf{F\_ode}. Nous utilisons notamment la bibliothèque \textbf{\textit{numpy}} avec l'alias \textbf{\textit{np}}.\\ 
+
+\begin{minted}[linenos]{python}
+import numpy as np
+"""
+Définition de la fonction qui renvoie la dérivée de phi,psi,phi' et psi' 
+pour le système 15 avec la syntaxe correspondant à odeint.
+"""
+
+def F_15(tab,t,M):
+    phi,psi,vphi,vpsi = tab
+    du = np.array([vphi, vpsi, - phi - (phi**2 +psi**2)*phi, 
+         -M*psi -(phi**2 +psi**2)*psi])
+    return du
+
+\end{minted} 
+
+Cette fonction prend en argument : 
+\begin{itemize}
+\item un tableau "tab", contenant les valeurs des conditions initiales pour $(\phi, \psi, \phi',\psi')$;
+\item un tableau "t", de N valeurs régulièrement espacées sur l'intervalle de temps considéré que nous définirons par la suite;
+\item un paramètre "M", qui correspond à $\mu$ dans notre système. 
+\end{itemize}
+Elle renvoie en sortie un tableau de valeurs des dérivées du tableau d'entrée c'est à dire $(\phi', \psi', \phi'',\psi'')$. Nous avons donc bien une fonction de la forme \eqref{fSO6}.
+Cette fonction nous servira d'argument dans la fonction \textbf{\textit{odeint}} de la bibliothèque \textit{\textbf{scipy.integrate}} qui permet de résoudre numériquement des systèmes d'équations différentielles ordinaires.\\
+Nous nous plaçons maintenant dans un fichier séparé et nous utilisons donc la fonction \textit{\textbf{odeint}} pour résoudre le système :\\
+
+
+\begin{minted}[linenos]{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+from scipy.integrate import odeint
+from F_ode import F_15, test15 
+"""On a fait appel ici aux fonctions concernant le système (15) définies 
+dans le fichier F_ode"""
+
+#Paramètres:
+    M = 2 #mu
+    #Intervalle de temps:
+        ti = 0
+        tf = 30
+        N = 10000  #Nombre de pas
+    t_ode = np.linspace(ti,tf,N) 
+#Conditions initiales:
+C0 = np.array([np.sqrt(2),0,15,10])
+
+#Résolution:
+solu = odeint(F_33,C0,t_ode, args = (M,))
+rsolu = solu[:,[0,1]] #On récupère seulement les deux premières colonnes (Phi,Psi)
+
+
+\end{minted}
+
+Nous avons à disposition dans le tableau \textit{solu} N valeurs de $\phi$, $\psi$, $\phi'$ et $\psi'$ en fonction du temps qui vont nous permettre de représenter graphiquement les solutions. Nous nous restreignons cependant au tableau \textit{rsolu} qui correspond aux deux premières colonnes de \textit{solu}, soient les valeurs de $\phi$ et $\psi$ qui nous intéressent pour les tracés.
+
+Pour tracer les courbes recherchées, nous utilisons dans la suite du code la bibliothèque \\ \textbf{\textit{matplotlib.pyplot}} avec l'alias \textbf{\textit{plt}} :\\
+
+\begin{minted}[linenos,firstnumber=last]{python} 
+#Représentation des solutions :
+fig = plt.figure(1, figsize = [9,7], constrained_layout=True)
+plt.clf()
+
+#Mise en forme
+plt.axis('off')
+plt.title("""Solution du système (33) \n 
+          Paramètres : ($\phi_0$,$\psi_0$,$\phi_0'$,$\psi_0'$) = ({},{},{},{})\n 
+          $\mu$ = {} , t = {} \n""" .format(C0[0],C0[1],C0[2],C0[3],M1,tf))
+
+gs = gridspec.GridSpec(3, 2)  #Mise en page pour la disposition des subplots 
+
+#Tracé de phi en fonction de t:
+ax1 = fig.add_subplot(gs[0,0])
+plt.title("$\phi = f(t)$", fontsize = 9)
+plt.plot(t_ode,rsolu[:,0],'b-',linewidth= 0.3) 
+
+#Tracé de psi en fonction de t:
+ax2 = fig.add_subplot(gs[0,1])
+plt.title("$\psi = f(t)$", fontsize = 9)
+plt.plot(t_ode,rsolu[:,1],'b-',linewidth= 0.3) 
+
+#Tracé de psi en fonction de phi:
+ax3 = fig.add_subplot(gs[1:3,:])
+plt.title("\n$\psi = f(\phi)$", y=-0.1)
+
+ax3.spines['left'].set_position('zero')      #Positionnement de axes au centre
+ax3.spines['bottom'].set_position('zero')
+
+ax3.spines['right'].set_color('none')
+ax3.spines['top'].set_color('none')      #Suppression des axes inutiles
+
+plt.xticks([])      #Suppression des graduations
+plt.yticks([])  
+
+plt.plot(rsolu[:,0],rsolu[:,1],'b-',linewidth= 0.3) 
+plt.show()
+
+\end{minted}
+
+Dans cette partie du code, nous utilisons donc les valeurs de $\phi$ et $\psi$ obtenues en fonction du temps et nous traçons trois graphiques sur la même figure:
+\vspace{0.2cm}
+\begin{itemize}
+\item $\phi$ en fonction du temps, \textit{t\_ode};
+\item $\psi$ en fonction du temps, \textit{t\_ode};
+\item $\psi$ en fonction de $\phi$, tel que présenté dans notre document de référence.
+\end{itemize}
+\vspace{0.2cm}
+    Chacune de ces représentations est tracée sur un "sous-graphique" appelé \textit{\textbf{subplot}}. Pour cela, nous utilisons la commande \textit{\textbf{plt.plot(x,y)}} qui permet de tracer des points sur le graphique, en indiquant l'abscisse et l'ordonnée souhaitées ainsi que des commandes de mise en forme.
+Les \textit{\textbf{subplots}} sont ensuite arrangés sur une même figure en utilisant plusieurs options de mise en page pour améliorer la lisibilité.
+
+Nous obtenons par exemple une figure comme celle-ci :\\
+ \begin{center}
+ \includegraphics[scale=0.7]{REGIME1_ODE33.pdf}
+ \end{center}
+
+%%Notes:
+    % A TERMINER : ->en faisant varier les conditions initiales on retrouve bien deux régimes comme dans le poly..., + images de chacun des régimes. +Changer le numéro des système sur les images.
+    
+    %Partie solution exceptionnelle: méthode par dichotomie entre les deux régimes, image de la "singularité" + explication avec la fin du poly = code de la fonction test_15 et exemple de valeur...
+    %Dans le contexte thélrique: ajout des systèmes 27 et 28 du poly avec le raisonnement qu'il y a avant?
+
     \subsection{Phénomène de transfert d'énergie (solutions exceptionnelles)}
 \section{Résolution de l'équation de Kirchhoff (système \eqref{KC})}
     \subsection{Simplification de l'équation}
     \subsection{Résolution numérique}
-    \subsection{Phénomène de transfert d'énergie (solutions exceptionnelles) (peut-être??)}
+    \subsection{Phénomène de transfert d'énergie (solutions exceptionnelles)}
 
 \section{Solution à un système inédit}
 
